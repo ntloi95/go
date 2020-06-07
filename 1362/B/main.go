@@ -2,34 +2,37 @@ package main
 
 import "fmt"
 
-var nTest int
-var a, b int64
-
 func main() {
-	fmt.Scanf("%d\n", &nTest)
+	var nTest int
+	fmt.Scan(&nTest)
 
-	for i := 0; i < nTest; i++ {
-		fmt.Scanf("%d %d\n", &a, &b)
+	for t := 0; t < nTest; t++ {
+		var n int
+		fmt.Scan(&n)
+		var a [1025]int
 
-		nOperation := 0
-		if a > b {
-			a, b = b, a
+		for i := 0; i < n; i++ {
+			fmt.Scan(&a[i])
 		}
 
-		for a < b {
-			if a*8 <= b {
-				a *= 8
-			} else if a*4 <= b {
-				a *= 4
-			} else if a*2 <= b {
-				a *= 2
-			} else {
-				nOperation = -1
+		var cnt [1025]int
+		for i := 0; i < n; i++ {
+			for j := 0; j < n; j++ {
+				cnt[a[i]^a[j]]++
+			}
+		}
+
+		hasSolution := false
+		for i := 1; i < 1025; i++ {
+			if cnt[i] == n {
+				fmt.Println(i)
+				hasSolution = true
 				break
 			}
-			nOperation++
 		}
 
-		fmt.Println(nOperation)
+		if !hasSolution {
+			fmt.Println(-1)
+		}
 	}
 }
