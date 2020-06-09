@@ -1,27 +1,34 @@
 package main
 
-import "fmt"
+import (
+	"bufio"
+	"fmt"
+	"os"
+)
 
 var nTest, n, m int
 var a [55][55]int
 
 func main() {
-	fmt.Scan(&nTest)
+	in := bufio.NewReader(os.Stdin)
+	out := bufio.NewWriter(os.Stdout)
+	fmt.Fscan(in, &nTest)
 
 	for i := 0; i < nTest; i++ {
-		fmt.Scan(&n, &m)
+		fmt.Fscan(in, &n, &m)
 		var row [55]bool
 		var col [55]bool
 
 		for i := 0; i < n; i++ {
 			for j := 0; j < m; j++ {
-				fmt.Scan(&a[i][j])
+				fmt.Fscan(in, &a[i][j])
 
 				if a[i][j] == 1 {
 					row[i] = true
 					col[j] = true
 				}
 			}
+			fmt.Fscanln(in)
 		}
 
 		nRow := 0
@@ -46,10 +53,10 @@ func main() {
 		}
 
 		if step&1 == 1 {
-			fmt.Println("Ashish")
+			fmt.Fprintln(out, "Ashish")
 		} else {
-			fmt.Println("Vivek")
+			fmt.Fprintln(out, "Vivek")
 		}
-
 	}
+	out.Flush()
 }
